@@ -15,11 +15,7 @@ function Queue() {
 
   /* Push method - push from front*/
   this.push = function(data) {
-    this.count++;
-    if (this.lastPtr === null) {
-      this.lastPtr = {data:data, prev: this.topPtr};
-    }
-    else {
+    if (this.lastPtr !== null) {
       if (this.topPtr == null) {
         this.topPtr = {data:data, prev:null};
         this.topPtr.next = this.lastPtr;
@@ -33,7 +29,12 @@ function Queue() {
         prev.prev = this.topPtr;
       }
     }
+    else {
+      this.lastPtr = {data:data, prev: this.topPtr};
+    }
+    this.count++;
   }
+
 
   /* Show Stack */
   this.show = function () {
@@ -48,45 +49,45 @@ function Queue() {
   }
 
   this.peekLast =  function() {
-    if (this.lastPtr == {}) {
-      return null;
+    if (this.lastPtr !== null) {
+      return console.log(this.lastPtr.data);
     }
     else {
-      return console.log(this.lastPtr.data);
+      return null;
     }
   }
 
   this.peekFirst =  function() {
-    if (this.topPtr == {}) {
-      return null;
+    if (this.topPtr !== null) {
+      return console.log(this.topPtr.data);
     }
     else {
-      return console.log(this.topPtr.data);
+      return null;
     }
   }
 
   /* Pop method */
   this.popLast = function() {
-    if (this.lastPtr == null) {
-      return null;
-    }
-    else {
+    if (this.lastPtr !== null) {
       var last = this.lastPtr;
       this.lastPtr = this.lastPtr.prev;
       this.count--;
       return console.log(last.data);
     }
+    else {
+      return null;
+    }
   };
 
   this.popFirst = function() {
-    if (this.topPtr == null) {
-      return null;
-    }
-    else {
+    if (this.topPtr !== null) {
       var top = this.topPtr;
       this.topPtr = this.topPtr.next;
       this.count--;
       return console.log(top.data);
+    }
+    else {
+      return null;
     }
   };
 }
